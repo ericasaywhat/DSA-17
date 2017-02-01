@@ -39,7 +39,7 @@ public class MyLinkedList<T> {
 	}
 
 	public void addLast(T e) {
-		if (size == 0){
+		if (isEmpty()){
 		    head = new Node(e, null, null);
 		    tail = head;
         } else {
@@ -51,7 +51,7 @@ public class MyLinkedList<T> {
 	}
 
 	public void addFirst(T e) {
-	    if (size == 0){
+	    if (isEmpty()){
 	        head = new Node(e, null, null);
 	        tail = head;
 
@@ -88,17 +88,15 @@ public class MyLinkedList<T> {
             return removeLast();
         } else {
 	        Node problem = getNode(index);
-	        Node previous = problem.prev;
-	        Node advance = problem.next;
-	        advance.prev = previous;
-	        previous.next = advance;
+	        problem.prev.next = problem.next;
+	        problem.next.prev = problem.prev;
 	        size--;
             return problem.val;
         }
 	}
 
 	public T removeFirst() {
-	    if (size == 0) {
+	    if (isEmpty()) {
 	        throw new IndexOutOfBoundsException();
         }
         T problem = head.val;
@@ -115,7 +113,7 @@ public class MyLinkedList<T> {
 	}
 
 	public T removeLast() {
-	    if (size == 0) {
+	    if (isEmpty()) {
 	        throw new IndexOutOfBoundsException();
         }
 	    T problem = tail.val;
@@ -126,7 +124,6 @@ public class MyLinkedList<T> {
 	        head = null;
 	        tail = null;
         }
-
         size--;
 		return problem;
 	}
