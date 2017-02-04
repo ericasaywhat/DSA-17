@@ -8,8 +8,8 @@ import java.util.LinkedList;
  * An implementation of the Stack interface.
  */
 public class MyStack implements StackADT<Integer> {
-    LinkedList<Integer> list;
-    LinkedList<Integer> max;
+    private LinkedList<Integer> list;
+    private LinkedList<Integer> max;
 
     public MyStack() {
         list = new LinkedList<>();
@@ -49,13 +49,4 @@ public class MyStack implements StackADT<Integer> {
         return max.peekLast();
     }
 
-    public static void main (String args[]) {
-        MyStack stack = new MyStack();
-        stack.push(1);
-        stack.push(3);
-        stack.push(2);
-        stack.push(5);
-
-        stack.pop();
-    }
 }
