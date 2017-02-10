@@ -43,28 +43,51 @@ public class MyHashMap<K, V> implements Map<K, V> {
 	 * Initialize maps
 	 */
 	protected void makeMaps(int size) {
-		// TODO: Implement this method
+		maps = new ArrayList<>();
+		for(int i = 0; i<size;i++){
+		    maps.add(new MyLinearMap<>());
+        }
 	}
 
 	protected MyLinearMap<K, V> chooseMap(Object key) {
-		// TODO: Implement this method
-		return null;
+        int index = key==null ? 0 : Math.abs(key.hashCode()) % maps.size();       //from the reading
+        return maps.get(index);
+//        MyLinearMap<K,V> chosen;
+//	    if (key == null){
+//	        chosen = maps.get(0);
+//        } else {
+//	        chosen = maps.get(key.hashCode() % maps.size());
+//        }
+//		return chosen;
 	}
 
 	@Override
 	public boolean containsKey(Object key) {
-		// TODO
-		return false;
+        MyLinearMap<K,V> m = chooseMap(key);
+	    return m.containsKey(key);
 	}
 
 	@Override
 	public boolean containsValue(Object value) {
-		// TODO
+        for (MyLinearMap<K,V> m : maps) {
+            if(m.containsValue(value)){
+                return true;
+            }
+        }
 		return false;
 	}
 
 	protected void rehash(double growthFactor) {
-		// TODO: Implement this method
+        List<MyLinearMap<K,V>> oldMap = maps;
+        int newSize = (int)(maps.size()*growthFactor);
+        makeMaps(newSize);
+        size = 0;
+        for(MyLinearMap<K,V> m : oldMap){
+            for(Map.Entry<K,V> entry : m.getEntries()){
+                put(entry.getKey(),entry.getValue());
+            }
+        }
+
 	}
 
 	@Override
@@ -75,14 +98,28 @@ public class MyHashMap<K, V> implements Map<K, V> {
 
 	@Override
 	public V put(K key, V value) {
-		// TODO
-		return null;
+		MyLinearMap<K,V> m = chooseMap(key);
+		size-=m.size();
+		V val = m.put(key, value);
+		size+=m.size();
+        if (size > maps.size() * ALPHA) {
+            rehash(GROWTH_FACTOR);
+        }
+		return val;
+
 	}
 
 	@Override
 	public V remove(Object key) {
-		// TODO
-		return null;
+	    MyLinearMap<K,V> m = chooseMap(key);
+	    size -= m.size();
+	    V oldValue = m.remove(key);
+	    size+=m.size();
+
+        if (maps.size()*SHRINK_FACTOR >= MIN_MAPS && size < maps.size() * BETA) {
+            rehash(SHRINK_FACTOR);
+        }
+		return oldValue;
 	}
 
 	@Override
@@ -125,4 +162,5 @@ public class MyHashMap<K, V> implements Map<K, V> {
 		}
 		return set;
 	}
+
 }

@@ -1,8 +1,20 @@
+
 public class Boomerang {
 
     public static int numberOfBoomerangs(int[][] points) {
-        // TODO
-        return 0;
+        int numBoom = 0;
+        MyHashMap<Integer,Integer> map = new MyHashMap<>();
+        for(int i = 0; i < points.length; i++){
+            for (int j = 0; j < points.length; j++){
+                int distance = getSquaredDistance(points[i],points[j]);
+                map.put(distance,map.getOrDefault(distance,0)+1);
+            }
+            for(Integer value: map.values()){
+                numBoom += value*(value-1);
+            }
+            map.clear();
+        }
+        return numBoom;
     }
 
     private static int getSquaredDistance(int[] a, int[] b) {
