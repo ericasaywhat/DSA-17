@@ -1,18 +1,30 @@
+import java.util.Random;
+
 public class QuickSort extends SortAlgorithm {
 
-    private static final int INSERTION_THRESHOLD = 10;
+    private static final int INSERTION_THRESHOLD = 0;
 
     /**
-     * Best-case runtime:
-     * Worst-case runtime:
-     * Average-case runtime:
+     * Best-case runtime: nlogn
+     * Worst-case runtime: n^2
+     * Average-case runtime:nlogn
      *
-     * Space-complexity:
+     * Space-complexity: logn (function calls take up space)
      */
     @Override
     public int[] sort(int[] array) {
-        // TODO
-        return new int[0];
+        array = shuffle(array);
+        quickSort(array, 0, array.length-1);
+        return array;
+    }
+
+    public int[] shuffle (int[] array){
+        Random random = new Random();
+        for (int i = 0; i< array.length; i++){
+            int j = random.nextInt(i+1);
+            swap(array, i, j);
+        }
+        return array;
     }
 
     /**
@@ -24,7 +36,18 @@ public class QuickSort extends SortAlgorithm {
      * @param high The ending index of the subarray being considered (inclusive)
      */
     public void quickSort(int[] a, int low, int high) {
-        // TODO
+        if (a.length <= INSERTION_THRESHOLD){
+            InsertionSort insertionSort = new InsertionSort();
+            insertionSort.sort(a);
+        } else {
+            if(low<high){
+                int r = partition(a, low, high);
+
+                quickSort(a, low, r-1);
+                quickSort(a, r+1, high );
+            }
+
+        }
     }
 
 
@@ -37,8 +60,18 @@ public class QuickSort extends SortAlgorithm {
      * @param high The ending index of the subarray being considered (inclusive)
      */
     public int partition(int[] array, int low, int high) {
-        // TODO
-        return 0;
+        int i,j;
+        i = low;
+        int pivot = array[low];
+
+        for (j = low+1; j <= high; j++){
+            if (array[j]<pivot){
+                i++;
+                swap(array, i, j);
+            }
+        }
+        swap(array, low,i);
+        return i;
     }
 
 }
