@@ -1,36 +1,4 @@
-
 public class PeakFinding {
-
-    public static int findPeak(int[]nums, int low, int high) {
-        int index = low + (high - low) / 2;
-
-        if (low > high) {
-            return -1;
-        }
-        if (index > 0 && index < nums.length - 1) {
-            if (nums[index - 1] <= nums[index]) {
-                if (nums[index + 1] <= nums[index]) {
-                    return index;
-                }
-                return findPeak(nums, index + 1, high);
-            } else {
-                return findPeak(nums, low, index - 1);
-            }
-
-        } else if (index == 0) {
-            if (nums[index + 1] <= nums[index]) {
-                return index;
-            }
-            return findPeak(nums, index + 1, high);
-        } else if (index == nums.length - 1) {
-            if (nums[index - 1] <= nums[index]) {
-                return index;
-            }
-            return findPeak(nums, low, index - 1);
-        }
-
-        return -1;
-    }
 
     // Return -1 is left is higher, 1 if right is higher, 0 if peak
     private static int peak(int i, int[] nums) {
@@ -78,15 +46,23 @@ public class PeakFinding {
         return maxIndex;
     }
 
-    public static int findOneDPeak(int[] nums){
-        return findPeak(nums, 0, nums.length-1);
 
+    public static int findOneDPeak(int[] nums){
+        int lo = 0;
+        int hi = nums.length;
+        while (lo < hi) {
+            int mid = (hi+lo)/2;
+            int direction = peak(mid, nums);
+            if (direction == 0) return mid;
+            else if (direction == -1) hi = mid;
+            else if (direction == 1) lo = mid+1;
+        }
+        return -1;
     }
 
-    public static int[] findTwoDPeak(int[][] nums){
-    	// TODO: Optionally due by 2/23. Will be due on 2/27.
-        int[] answer = {-1,-1};
-        return answer;
+    public static int[] findTwoDPeak(int[][] nums) {
+        // TODO
+        return null;
     }
 
 }

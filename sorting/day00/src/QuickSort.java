@@ -25,6 +25,7 @@ public class QuickSort extends SortAlgorithm {
             swap(array, i, j);
         }
         return array;
+
     }
 
     /**
