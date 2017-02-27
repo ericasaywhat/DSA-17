@@ -1,6 +1,6 @@
 public class PeakFinding {
 
-    // Return -1 is left is higher, 1 if right is higher, 0 if peak
+    // Return -1 if left is higher, 1 if right is higher, 0 if peak
     private static int peak(int i, int[] nums) {
         if (i>0 && nums[i] < nums[i-1])
             return -1;
@@ -9,7 +9,7 @@ public class PeakFinding {
         return 0;
     }
 
-    // Return -1 is left is higher, 1 if right is higher, 0 if peak
+    // Return -1 if left is higher, 1 if right is higher, 0 if peak
     private static int peakX(int x, int y, int[][] nums) {
         if (x>0 && nums[y][x] < nums[y][x-1])
             return -1;
@@ -18,7 +18,7 @@ public class PeakFinding {
         return 0;
     }
 
-    // Return -1 is up is higher, 1 if down is higher, 0 if peak
+    // Return -1 if up is higher, 1 if down is higher, 0 if peak
     private static int peakY(int x, int y, int[][] nums) {
         if (y>0 && nums[y][x] < nums[y-1][x])
             return -1;
@@ -61,8 +61,36 @@ public class PeakFinding {
     }
 
     public static int[] findTwoDPeak(int[][] nums) {
-        // TODO
-        return null;
+        int lowX = 0;
+        int highX= nums[0].length-1;
+        int lowY = 0;
+        int highY = nums.length-1;
+
+        int indexX = (highX+lowX)/2;
+        int indexY = (highY+lowY)/2;
+
+        while(lowX< highX-1 && lowY< highY-1){
+            indexX = (highX+lowX)/2;
+            indexY = (highY+lowY)/2;
+
+            if (maxXIndex(indexY, lowX, highX, nums) == indexX && maxYIndex(indexX, lowY, highY, nums) == indexY)
+                return new int[] {indexX, indexY};
+            if (peakY(indexX, indexY, nums) == 0 && peakX(indexX, indexY, nums) == 0)  return new int[] {indexX, indexY};
+            else if (peakY(indexX, indexY, nums) == 1) {
+                lowY = indexY;
+                if (peakX(indexX, indexY, nums) == 1) lowX = indexX;
+                else if (peakX(indexX, indexY, nums) == -1) highX = indexX;
+            } else if (peakY(indexX, indexY, nums) == -1) {
+                highY = indexY;
+                if (peakX(indexX, indexY, nums) == 1) lowX = indexX;
+                else if (peakX(indexX, indexY, nums) == -1) highX = indexX;
+            } else {
+                if (peakX(indexX, indexY, nums) == 1) lowX = indexX;
+                else if (peakX(indexX, indexY, nums) == -1) highX = indexX;
+            }
+        }
+
+        return new int[] {-1,-1};
     }
 
 }
