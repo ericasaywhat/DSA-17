@@ -75,7 +75,7 @@ public class PeakFinding {
 
             if (maxXIndex(indexY, lowX, highX, nums) == indexX && maxYIndex(indexX, lowY, highY, nums) == indexY)
                 return new int[] {indexX, indexY};
-            if (peakY(indexX, indexY, nums) == 0 && peakX(indexX, indexY, nums) == 0)  return new int[] {indexY, indexX}; //lolol omg ;A;
+            if (peakY(indexX, indexY, nums) == 0 && peakX(indexX, indexY, nums) == 0)  return new int[] {indexY, indexX}; //because of how the matrix is set up ;A;
             else if (peakY(indexX, indexY, nums) == 1) {
                 lowY = indexY;
                 if (peakX(indexX, indexY, nums) == 1) lowX = indexX;
@@ -90,7 +90,7 @@ public class PeakFinding {
             }
         }
 
-        return new int[] {0,0};
+        return new int[] {0,0};  //can't be {-1,-1} because of how the tests are set up but also {0,0} implicates top left hand corner
     }
 
 }
