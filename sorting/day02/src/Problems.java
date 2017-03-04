@@ -4,14 +4,15 @@ public class Problems {
 
     static void sortNumsBetween100s(int[] A) {
         RadixSort rs = new RadixSort();
-        for (int i = 0; i < A.length ; i++) {
-            A[i]+=100;
+        for (int i = 0; i < A.length; i++) {
+            A[i] += 100;
         }
-        rs.radixSort(A,10);
-        for (int i = 0; i < A.length ; i++) {
-            A[i]-=100;
+        rs.radixSort(A, 10);
+        for (int i = 0; i < A.length; i++) {
+            A[i] -= 100;
         }
     }
+
 
     /**
      * @param n the character number, 0 is the rightmost character
@@ -32,7 +33,7 @@ public class Problems {
         for (int i = 0; i < 26; i++)
             L[i] = new LinkedList<>();
         for (String el : A) {
-            int nth = getNthCharacter(el,n);
+            int nth = getNthCharacter(el, n);
             L[nth].add(el);
         }
         int j = 0; // index in A to place numbers
@@ -41,8 +42,8 @@ public class Problems {
                 for (String el2 : list) A[j++] = el2;
             }
         }
-
     }
+
 
     /**
      * @param stringLength The length of each of the strings in S
@@ -51,6 +52,7 @@ public class Problems {
         for (int i = 0; i < stringLength; i++) {
             countingSortByCharacter(S, i);
         }
+
     }
 
 }

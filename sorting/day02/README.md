@@ -16,7 +16,11 @@ By doing this assignment, you should be able to
 
 ### Counting Sort
 
+<<<<<<< HEAD
 Fill in `countingSort(int[] A, int k)` in `CountingSort.java`. Note the runtime in the comments. **Express your runtime in terms of n and k.**
+=======
+Fill in `countingSort(int[] A)` in `CountingSort.java`. Note the runtime in the comments. **Express your runtime in terms of n and k.**
+>>>>>>> 3426e3cd9fc692dfc73d933f57a34f667a2def97
 
 ### Stable Counting Sort
 
@@ -32,7 +36,11 @@ Fill in `countingSortByDigit(int[] A, int b, int n)` in `RadixSort.java`. Note t
 
 ### Radix Sort
 
+<<<<<<< HEAD
 Finally, fill in `radixSort(int[] A, int b, int k)` in `RadixSort.java`. Note the runtime in the comments. **Express your runtime in terms of n, b, and w.**
+=======
+Finally, fill in `radixSort(int[] A, int b)` in `RadixSort.java`. Note the runtime in the comments. **Express your runtime in terms of n, b, and w.**
+>>>>>>> 3426e3cd9fc692dfc73d933f57a34f667a2def97
 
 If you're having trouble with radix sort, you can continue watching the [MIT lecture](https://youtu.be/Nz1KZXbghj8?t=44m30s). Watch up to 50:01. If you want to get into the math behind the runtime of radix sort, watch through the end.
 
@@ -40,7 +48,11 @@ If you're having trouble with radix sort, you can continue watching the [MIT lec
 
 ### Sort numbers between -100 and 100.
 
+<<<<<<< HEAD
 You are given an array of non-negative integers between [-100, 100], inclusive. Write a function to sort them as quickly as possible. Feel free to use code you've already written.
+=======
+You are given an array of integers in the range [-100, 100], inclusive. Write a function to sort them as quickly as possible. Feel free to use code you've already written.
+>>>>>>> 3426e3cd9fc692dfc73d933f57a34f667a2def97
 
 ### Sort array of `String`s
 

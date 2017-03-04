@@ -22,20 +22,24 @@ public class RadixSort {
         for (int i = 0; i < b; i++)
             L[i] = new LinkedList<>();
         for (int i : A) {
-            int nth = getNthDigit(i,b,n);
+            int nth = getNthDigit(i, b, n);
             L[nth].add(i);
         }
         int j = 0; // index in A to place numbers
         for (LinkedList<Integer> list : L) {
-            if (!list.isEmpty()){
-                for(int num : list) A[j++] = num;
+            if (!list.isEmpty()) {
+                for (int num : list) A[j++] = num;
             }
         }
     }
 
     /**
+<<<<<<< HEAD
      * Runtime: O(w*(b+n))
      * Space: O(n+b) at a time
+=======
+     * Runtime: TODO: Express your runtime in terms of n, b, and w
+>>>>>>> 3426e3cd9fc692dfc73d933f57a34f667a2def97
      *
      * n: length of array
      * w: word length of integers A in base b (equal to log base b of k (log_b k) )
