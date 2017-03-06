@@ -24,11 +24,11 @@ public class BinarySearchTreeTest {
 
     @Before
     public void setUp() throws Exception {
-        bsts = new BinarySearchTree[4];
+        bsts = new BinarySearchTree[5];
         for (int i = 0; i < bsts.length; i++) {
             bsts[i] = new BinarySearchTree<>();
         }
-        inputs = new Integer[4][];
+        inputs = new Integer[5][];
 
         inputs[0] = new Integer[]{3,2,1,4};
         bsts[0].addAll(inputs[0]);
@@ -49,6 +49,11 @@ public class BinarySearchTreeTest {
         bsts[3].addAll(inputs[3]);
         assertThat(bsts[3].size(), is(9));
         assertValidBST(bsts[3].root);
+
+        inputs[4] = new Integer[]{23, 15, 10, 8, 40, 38, 37, 36, 24, 25, 26, 27};
+        bsts[4].addAll(inputs[4]);
+        assertThat(bsts[4].size(), is(12));
+        assertValidBST(bsts[4].root);
     }
 
     private void assertValidBST(TreeNode<Integer> n) {
@@ -87,6 +92,7 @@ public class BinarySearchTreeTest {
         predTest(bsts[1], inputs[1]);
         predTest(bsts[2], inputs[2]);
         predTest(bsts[3], inputs[3]);
+        predTest(bsts[4], inputs[4]);
     }
 
     private void testSuccessor(BinarySearchTree<Integer> bst, Integer[] input) {
@@ -105,6 +111,7 @@ public class BinarySearchTreeTest {
         testSuccessor(bsts[1], inputs[1]);
         testSuccessor(bsts[2], inputs[2]);
         testSuccessor(bsts[3], inputs[3]);
+        testSuccessor(bsts[4], inputs[4]);
     }
 
     private void iotTest(BinarySearchTree<Integer> bst, Integer[] input) {
@@ -120,6 +127,7 @@ public class BinarySearchTreeTest {
         iotTest(bsts[1], inputs[1]);
         iotTest(bsts[2], inputs[2]);
         iotTest(bsts[3], inputs[3]);
+        iotTest(bsts[4], inputs[4]);
     }
 
 
@@ -145,5 +153,6 @@ public class BinarySearchTreeTest {
         delTest(bsts[1], inputs[1]);
         delTest(bsts[2], inputs[2]);
         delTest(bsts[3], inputs[3]);
+        delTest(bsts[4], inputs[4]);
     }
 }
