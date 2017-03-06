@@ -1,3 +1,4 @@
+import java.util.LinkedList;
 import java.util.List;
 
 public class BinarySearchTree<T extends Comparable<T>> {
@@ -27,9 +28,18 @@ public class BinarySearchTree<T extends Comparable<T>> {
             add(k);
     }
 
+    public LinkedList<T> traversal(TreeNode<T> n, LinkedList<T> ll){
+        if(n == null) return new LinkedList<T>();
+        traversal(n.leftChild, ll);
+        ll.add(n.key);
+        traversal(n.rightChild,ll);
+
+        return ll;
+
+    }
+
     public List<T> inOrderTraversal() {
-        // TODO
-        return null;
+        return traversal(root, new LinkedList<T>());
     }
 
     /**
@@ -66,8 +76,10 @@ public class BinarySearchTree<T extends Comparable<T>> {
             replacement = (n.hasRightChild()) ? n.rightChild : n.leftChild; // replacement is the non-null child
         else {
             // Case 3: two children
-            // TODO
-            replacement = null;
+            replacement = findSuccessor(n);
+            delete(replacement);
+            replacement.moveChildrenFrom(n);
+
         }
 
         // Put the replacement in its correct place, and set the parent.
@@ -96,13 +108,33 @@ public class BinarySearchTree<T extends Comparable<T>> {
     }
 
     private TreeNode<T> findPredecessor(TreeNode<T> n) {
-        // TODO
-        return null;
+        TreeNode<T> pred;
+        if(n.leftChild != null){
+            pred = n.leftChild;
+            while (pred.rightChild != null) pred = pred.rightChild;
+        } else {
+            pred = n.parent;
+            while(pred != null && n.isLeftChild()){
+                n = pred;
+                pred = pred.parent;
+            }
+        }
+        return pred;
     }
 
     private TreeNode<T> findSuccessor(TreeNode<T> n) {
-        // TODO
-        return null;
+        TreeNode<T> succ;
+        if(n.rightChild != null){
+            succ = n.rightChild;
+            while(succ.leftChild != null) succ = succ.leftChild;
+        } else {
+            succ = n.parent;
+            while(succ != null && n.isRightChild()) {
+                n = succ;
+                succ = succ.parent;
+            }
+        }
+        return succ;
     }
 
     /**
