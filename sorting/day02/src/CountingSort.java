@@ -5,7 +5,6 @@ public class CountingSort {
 
     /**
      * Use counting sort to sort positive integer array A.
-     * <<<<<<< HEAD
      * Runtime: O(n+k)
      */
     static void countingSort(int[] A) {
