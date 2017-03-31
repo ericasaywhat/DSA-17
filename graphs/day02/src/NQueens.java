@@ -3,8 +3,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import static java.lang.Math.abs;
-
 public class NQueens {
 
     /**
@@ -39,23 +37,5 @@ public class NQueens {
         }
         return allBoards;
     }
-
-
-    public static void main(String args[]){
-        Permutations perm = new Permutations();
-        ArrayList<Integer> al = new ArrayList<>();
-        for(int i = 1; i<=8;i++){
-            al.add(i);
-        }
-
-        for(List<Integer> config: perm.permutationsQueens(al)){
-            for(int i = 1; i<8;i++){
-//                if(abs(config.get(i)-config.get(i+1))!= 1 && abs(config.get(i)-config.get(i-1))!= 1) System.out.print("true");
-            }
-        }
-
-
-        System.out.println(perm.permutationsQueens(al).size());
-//        System.out.print(nQueensSolutions(12));
-    }
+    
 }

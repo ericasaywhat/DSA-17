@@ -1,50 +1,54 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 
 public class CoinsOnAClock {
 
-    private static void backtrackCoins(char[] sublist, List<Integer> possible, List<char[]> answers, List<Character> clock) {
-        if (possible.isEmpty()) {
-            if (!answers.contains(sublist)) answers.add(Arrays.copyOf(sublist, sublist.length));
+    private static void backtrackCoins(int[] sublist, Map<Integer,Integer> possible, List<int[]> answers, int currentHour, int hoursInDay) {
+        if ((possible.get(1) == 0 && possible.get(5) == 0)&& possible.get(10) == 0) {
+            int[] copy = new int[sublist.length];
+            System.arraycopy(sublist, 0, copy, 0, sublist.length);
+            answers.add( copy);
             return;
         }
-//        for (int i = 0; i < possible.size(); i++) {
-//            int num = possible.get(i);
-//            if(){
-//                sublist.add(num);
-//                possible.remove(i);
-//                backtrackCoins(sublist, possible, answers, clock);
-//                sublist.remove(sublist.indexOf(num));
-//                possible.add(i, num);
-//            }
-//        }
+        if(sublist[currentHour%hoursInDay] != 0) return;
+
+        for (int coinval : possible.keySet()) {
+            if(possible.get(coinval) > 0){
+                sublist[currentHour%hoursInDay] = coinval;
+                possible.put(coinval, possible.get(coinval)-1);
+                backtrackCoins(sublist, possible, answers, (currentHour+coinval)%hoursInDay, hoursInDay);
+                sublist[currentHour%hoursInDay] = 0;
+                possible.put(coinval,possible.get(coinval)+1);
+            }
+
+
+        }
         return;
     }
 
-    private static List<Integer> createList(int pennies, int nickels, int dimes, List<Integer> al){
-        if((pennies == 0){
-            if (nickels == 0){
-                al.add(10);
-                return createList(pennies, nickels, dimes-1, al);
-                if (dimes == 0){
-                    return al;
-                }
-            }
-        }
-    }
-
     public static List<char[]> coinsOnAClock(int pennies, int nickels, int dimes, int hoursInDay) {
-        List<char[]> answers = new LinkedList<>();
-        ArrayList<Integer> possible = new ArrayList<>();
-        for(int i = 1; i<=pennies; i++)
-        backtrackCoins();
+        List<int[]> answers = new LinkedList<>();
+        List<char[]> finalAnswer = new LinkedList<>();
+        char[] finalCoins = new char[hoursInDay];
+        Map<Integer,Integer> possible = new HashMap<>();
+
+        possible.put(1,pennies);
+        possible.put(5,nickels);
+        possible.put(10,dimes);
 
 
-        // TODO
-        return null;
+        backtrackCoins(new int[hoursInDay], possible, answers,0, hoursInDay);
+
+        //convert List char[] into int[]
+        for(int[] coins : answers){
+            for(int a = 0; a< coins.length; a++){
+                if(coins[a] == 1) finalCoins[a] = 'p';
+                if(coins[a] == 5) finalCoins[a] = 'n';
+                if(coins[a] == 10) finalCoins[a] = 'd';
+            }
+            finalAnswer.add(Arrays.copyOf(finalCoins, finalCoins.length));
+        }
+        return finalAnswer;
     }
 
 }

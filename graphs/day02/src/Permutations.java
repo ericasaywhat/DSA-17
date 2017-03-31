@@ -4,7 +4,7 @@ public class Permutations {
 
     private static void backtrack(List<Integer> sublist, List<Integer> possible, List<List<Integer>> answers){
         if (possible.isEmpty()) {
-            if(!answers.contains(sublist)) answers.add(new ArrayList<>(sublist));
+            answers.add(new ArrayList<>(sublist));
             return;
         }
 
@@ -27,9 +27,9 @@ public class Permutations {
     }
 
 
-    private static void backtrackQueens(List<Integer> A, List<Integer> sublist, List<Integer> possible, List<List<Integer>> answers, List<Integer> nonoleft, List<Integer> nonoright) {
+    private static void backtrackQueens(List<Integer> sublist, List<Integer> possible, List<List<Integer>> answers, List<Integer> nonoleft, List<Integer> nonoright) {
         if (possible.isEmpty()) {
-            if (!answers.contains(sublist)) answers.add(new ArrayList<>(sublist));
+            answers.add(new ArrayList<>(sublist));
             return;
         }
         for (int i = 0; i < possible.size(); i++) {
@@ -49,7 +49,7 @@ public class Permutations {
                     nonoright.add(y,k+1);
                 }
                 nonoright.add(num+1);
-                backtrackQueens(A, sublist, possible, answers, nonoleft,nonoright);
+                backtrackQueens(sublist, possible, answers, nonoleft,nonoright);
                 sublist.remove(sublist.indexOf(num));
                 possible.add(i, num);
 
@@ -80,7 +80,7 @@ public class Permutations {
 
     public static List<List<Integer>> permutationsQueens(List<Integer> A) {
         List<List<Integer>> answers = new LinkedList<>();
-        backtrackQueens(A,new ArrayList<>(), new ArrayList<>(A), answers, new ArrayList<>(), new ArrayList<>());
+        backtrackQueens(new ArrayList<>(), new ArrayList<>(A), answers, new ArrayList<>(), new ArrayList<>());
 
         return answers;
     }
