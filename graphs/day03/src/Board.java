@@ -33,9 +33,7 @@ public class Board {
      * Estimated cost from the current node to the goal for A* (h(n))
      */
     public int manhattan() {
-        int row;
-        int col;
-        int num;
+        int row, col, num;
         int sum = 0;
 		for(int i = 0; i < n; i++){
             for (int j = 0; j < n ; j++) {

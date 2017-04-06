@@ -3,7 +3,6 @@
  * Construct a tree of board states using A* to find a path to the goal
  */
 
-import sun.awt.image.ImageWatched;
 
 import java.util.*;
 
