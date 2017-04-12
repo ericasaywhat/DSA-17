@@ -6,7 +6,6 @@ public class MixingMilk {
         ArrayList<Integer> copyPrice = new ArrayList<>();
         int totalPrice = 0;
         for(int i : price) copyPrice.add(i);
-//        int filler = Collections.max(copyPrice) + 1;
         while(M > 0) {
             int filler = Collections.max(copyPrice) + 1;
 
