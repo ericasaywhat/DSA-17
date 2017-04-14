@@ -1,34 +1,28 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 public class BillsNeeded {
 
-    int[] memo;
-
-    private int billsNeededHelper (int N, int[] billDenominations, int[] memo) {
-        int next;
-        List<Integer> al = new ArrayList<>();
-        if(N == 0) return 1;
-
-        if (memo[N] != -1) return memo[N];
-
-        for (int i = 0; i < billDenominations.length; i++) al.add(N-billDenominations[i]);
-        next = Collections.min(al);
-
-        if(next == 0) return 1;
-        else if(next > 0){
-            if (memo[next] != -1) return memo[next] +1;
-            else memo[N] = billsNeeded(next, billDenominations) + 1;
-        }
-        return memo[N];
-
-    }
-
     public int billsNeeded(int N, int[] billDenominations) {
-        memo = new int[N];
+        int[] memo = new int[N+1];
         for (int i = 0; i < memo.length; i++) memo[i] = -1;
 
         return billsNeededHelper(N, billDenominations, memo);
     }
+
+    private int billsNeededHelper (int N, int[] billDenominations, int[] memo) {
+        if(N==0) return 0;
+        if(memo[N] != -1) return memo[N];
+
+        int n = -1;
+        for (int i = 0; i < billDenominations.length ; i++) {
+            int nextSum = N-billDenominations[i];
+            if((nextSum>=0) &&(n ==-1|| billsNeededHelper(nextSum, billDenominations, memo)< n))
+                n=billsNeededHelper(nextSum, billDenominations, memo);
+        }
+
+        memo[N] = n+1 ; // min(DP[n-billdnominations]) +1
+
+        return n+1;
+
+    }
+
+
 }
